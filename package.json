@@ -1,0 +1,24 @@
+{
+  "name": "thoregon.identity",
+  "version": "1.0.0",
+  "description": "Self-Sovereign Identity",
+  "main": "index.js",
+  "directories": {
+    "doc": "doc",
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Thoregon/thoregon.identity.git"
+  },
+  "keywords": [],
+  "author": "Bernhard Lukassen <bl@bernhard-lukassen.com> (http://www.bernhard-lukassen.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Thoregon/thoregon.identity/issues"
+  },
+  "homepage": "https://github.com/Thoregon/thoregon.identity#readme"
+}
