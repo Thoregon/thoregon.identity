@@ -5,10 +5,18 @@ Implements Distributed Identites (DID's) for Thoregon.
 
 ## Procedure
 
-Someone creates an 'Identity Reflection' in Thoregon. This reflection
-can then be secured with 2 factor authentication (e.g. FIDO) and
-either be connected to a self souvereign identity from another service
+Someone creates an Identity in Thoregon. This identity is a reflection
+of an underlying identity and can then be secured with 2 factor authentication 
+(e.g. FIDO) and either be connected to a self souvereign identity from another service
 or be defined as Thoregon SSI. 
+
+- Client    
+    - create identity
+    - request access to bounded context (handshake)
+- Service (Context)
+    - either grant basic access automatically
+    - or queue request, must be granted manually 
+
 
 ## Verifiable Claims (Attests)
 
@@ -36,3 +44,17 @@ proof which does not need an further proofs.
 - WebAuthn
 - FIDO2
 - Self-Sovereign Identity
+
+# Personal Setup & Installation
+
+Base for setup and installed components is always an identity. 
+Additionally for every device the user uses, a localized setup for the device is created.
+A base setup is delivered by the provider of the component(s).
+
+The setup from identities and devices are stored in matter. Even if the security measures are constantly 
+being tightened, this setup is not lost
+
+On public installations without a user, the base setup is delivered by the provider. 
+A localized setup for the device is created on usage. This setup is stored in the 'localstore'.
+Due to tightening security measures, this setup may be lost during longer periods of inactivity.
+
