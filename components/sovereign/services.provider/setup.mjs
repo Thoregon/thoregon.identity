@@ -6,6 +6,9 @@
 
 import BoundedContextBuilder from '/thoregon.tru4D';
 import SchemaBuilder, { ID, CHILD, REL, INT, REAL, BOOL, STRING, DATE, DATETIME, DURATION, IMAGE, LIST, MAP, SET } from '/evolux.schema';
+import PushMessageAction
+    from "../../../../thoregon.heliots/components/sovereign/heliots.push.service/lib/actions/pushmessageaction.mjs";
+import RegisterServiceAction from "./lib/actions/RegisterServiceAction.mjs";
 
 const ns                = ref => `thoregon.heliots.${ref}`;    // shortcut, DRY
 
@@ -38,12 +41,17 @@ const responsibility    = 'services.provider';
 
     const entity = await sbuilder.build();
 
+    let registeraction = new RegisterServiceAction();
+    registeraction.commandid = 'CreateServiceCommand'
+
     const ctxbuilder = new BoundedContextBuilder();
 
     ctxbuilder.use(ctx)
         .addSchema(entity)
+        .validate(true)
         .addDefaults(responsibility)
         .collection('services', 'shared')
+        .withAction('RegisterServiceAction', registeraction)
         .release('2020-05-13.1')
     ;
 
