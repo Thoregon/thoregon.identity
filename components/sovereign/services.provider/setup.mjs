@@ -13,7 +13,7 @@ import RegisterServiceAction from "./lib/actions/RegisterServiceAction.mjs";
 const ns                = ref => `thoregon.heliots.${ref}`;    // shortcut, DRY
 
 const ctx               = 'services.provider';
-const entityName        = 'Service';
+const entityName        = 'ServiceRegistrationRequest';
 const entity            = ns(entityName);
 const responsibility    = 'services.provider';
 
@@ -30,19 +30,19 @@ const responsibility    = 'services.provider';
     sbuilder = new SchemaBuilder();
     sbuilder.name(entityName)
         .ref(ns(entityName))
-        .addAttribute({ name: 'id',                 type: STRING, index: true })
-        .addAttribute({ name: 'description',        type: STRING })
+        .addAttribute({ name: 'name',               type: STRING, index: true })
+        .addAttribute({ name: 'installation',       type: STRING })
         .addAttribute({ name: 'endpoint',           type: STRING })
-        .addAttribute({ name: 'expirationTime ',    type: DATETIME })
+        .addAttribute({ name: 'requestdttm',        type: DATETIME })       // todo: autovalue -> now (now + period)
         .addAttribute({ name: 'keys',               type: CHILD(ns('KeyPair')) })
-        .addAttribute({ name: 'admin',              type: CHILD(ns('KeyPair')) })
-        .key('id')
+        // .addAttribute({ name: 'admin',              type: CHILD(ns('KeyPair')) })
+        .key('name')
     ;
 
     const entity = await sbuilder.build();
 
     let registeraction = new RegisterServiceAction();
-    registeraction.commandid = 'CreateServiceCommand'
+    registeraction.commandid = 'CreateServiceRegistrationRequestCommand'
 
     const ctxbuilder = new BoundedContextBuilder();
 
