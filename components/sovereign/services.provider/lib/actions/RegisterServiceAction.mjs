@@ -11,19 +11,42 @@ import Action           from "/thoregon.tru4D/lib/action/action.mjs";
 export default class RegisterServiceAction  extends Action {
 
     async exec(command, payload, control, bc, errors) {
-/*
-        let {
-            channel,
-            subject,
-            content
-        } = payload;
-*/
+        const rnd = universe.Gun.text.random;
+        const SEA = universe.Gun.SEA;
 
-        // get subscriptions for 'channel'
-        let collection      = await bc.getCollection('services');
+        let collection = await bc.getCollection('registrationrequests');
+        let sidrequest = await collection.find(item => item.code === payload.code);     // this a random one time code
 
-        // get registered service
-        // create a cert and invoke the services endpoint; both cases success/error
+        if (sidrequest.length < 1) {
+            universe.logger.warn()
+            return;
+        }
 
+        const sid = rnd(64);
+        let services = await bc.getCollection('services');
+        let service = {
+            sid: sid,
+            name: sidrequest.name,
+            installation: sidrequest.installation,
+            email: sidrequest.email,
+            pubkeys: sidrequest.pubkeys
+        }
+
+        await services.add(service);
+
+        let request = universe.www.request;
+        // invoke the services endpoint; both cases success/error
+        request.put(`${sidrequest.endpoint}?status=success&sid=${sid}`, (response) => {
+            // todo
+        });
+    }
+
+
+    async rollback(command, payload, control, bc, err) {
+        let request = universe.www.request;
+        // invoke the services endpoint; case: error
+        request.put(`${sidrequest.endpoint}?status=error&message=CantAddService-${err.message}`, (response) => {
+            // todo
+        });
     }
 }
