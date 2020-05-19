@@ -70,14 +70,15 @@ const responsibility    = 'identity.services.provider';
     ctxbuilder.use(ctx)
         .addSchema(serviceRegistrationRequest)
         .validate(true)
-        .addCommand("CreateServiceRegistrationRequestCommand", responsibility, CreateCommand)
+        .addCommand('CreateServiceRegistrationRequestCommand', responsibility, CreateCommand)
         .collection('registrationrequests', 'shared')
         .addSchema(service)
         .validate(true)
         .addDefaults(responsibility)
+        .addCommand('RegisterServiceCommand', responsibility, CreateCommand)
         .collection('services', 'shared')
         .withAction('CheckRegistrationEMailAction', checkemailaction, 'CreateServiceRegistrationRequestCommand')
-        .withAction('RegisterServiceAction', registeraction, 'CreateServiceCommand')
+        .withAction('RegisterServiceAction', registeraction, 'RegisterServiceCommand')
         .release('2020-05-13.1')
     ;
 

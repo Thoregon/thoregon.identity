@@ -36,7 +36,7 @@ export default class CheckRegistrationEMailAction extends Action {
 
         // get registered service
         // create a cert and invoke the services endpoint; both cases success/error
-        transport.sendMail({
+        let result = await transport.sendMail({
             from: '"Test" <test@bernhard-lukassen.com>', // sender address
             to: email, // list of receivers
             subject: "Confirm Email", // Subject line

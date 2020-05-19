@@ -59,8 +59,7 @@ export default class ServiceProviderWebservice extends RestFull {
         wwwroot.get('confirm', async (req, res, data, utils) => {
             const bc        = tru4d.context(ctxid);
             try {
-                let servicedata = data.content;
-                let code = data.code;
+                let code = data.query.code;
 
                 let createservice = bc.commands.RegisterServiceCommand({ code });
                 await createservice.commit();
