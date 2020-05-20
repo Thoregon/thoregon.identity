@@ -36,18 +36,21 @@ export default class ServiceProviderWebservice extends RestFull {
             const bc        = tru4d.context(ctxid);
             try {
                 let servicedata = data.content;
-                //  - authorization (from admin) -> later
-                let {
-                    name,
-                    installation,
-                    email,
-                    endpoint,
-                } = servicedata;
-                let pubkeys = servicedata.pubkeys;
 
                 let requestservice = bc.commands.CreateServiceRegistrationRequestCommand(servicedata);
                 await requestservice.commit();
 
+                res.send('ACK');
+            } catch (e) {
+                universe.logger.error("[ServiceProviderWebservice->SID Request]", e);
+                res.status(500).send('NACK');
+            }
+        });
+
+        // reverify request
+        wwwroot.post('redorequest', async (req, res, data, utils) => {
+            const bc = tru4d.context(ctxid);
+            try {
                 res.send('ACK');
             } catch (e) {
                 universe.logger.error("[ServiceProviderWebservice->SID Request]", e);

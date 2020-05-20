@@ -9,6 +9,11 @@ import { forEach }      from "/evolux.util";
 
 import Action           from "/thoregon.tru4D/lib/action/action.mjs";
 
+const host = 'http://192.168.37.53:8282';  // localhost:8282
+const test = !!universe.idtest;
+
+const endpointhost = (inst) => test ? host : inst;
+
 export default class RegisterServiceAction  extends Action {
 
     async exec(command, payload, control, bc, errors) {
@@ -36,19 +41,20 @@ export default class RegisterServiceAction  extends Action {
             email: sidrequest.email,
             pubkeys: sidrequest.keys
         }
+        let hendpoint = endpointhost(sidrequest.installation);
 
         // create service
         await services.add(service);
 
         // mark request as done
         let dbrequest = collection.solid(sidrequest);
-        dbrequest.processed = new Date();
+        dbrequest.processed = universe.now;
         dbrequest.sid = sid;
 
         let request = universe.www.request;
         // invoke the services endpoint; both cases success/error
-        request.put(`${sidrequest.endpoint}?status=success&sid=${sid}`, (response) => {
-            // todo
+        request.put(`${hendpoint}${sidrequest.endpoint}?status=success&sid=${sid}`, (error, response, body) => {
+            // todo [OPEN]: check answer, if an error, don't register the service!
             universe.logger.debug(`[RegisterServiceAction] result: ${body}`);
         });
     }
@@ -66,8 +72,9 @@ export default class RegisterServiceAction  extends Action {
             return;
         }
         let sidrequest = request[0];
+        let hendpoint = endpointhost(sidrequest.installation);
         // invoke the services endpoint; case: error
-        request.put(`${sidrequest.endpoint}?status=error&message=CantAddService-${errmsgs}`, (response) => {
+        request.put(`${hendpoint}${sidrequest.endpoint}?status=error&message=CantAddService-${errmsgs}`, (error, response, body) => {
             // todo
             universe.logger.debug(`[RegisterServiceAction] result: ${body}`);
         });

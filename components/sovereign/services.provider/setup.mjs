@@ -34,13 +34,14 @@ const responsibility    = 'identity.services.provider';
     sbuilder = new SchemaBuilder();
     sbuilder.name('ServiceRegistrationRequest')
         .ref(ns('ServiceRegistrationRequest'))
-        .addAttribute({ name: 'name',               type: STRING, index: true })
         .addAttribute({ name: 'installation',       type: STRING, index: true })
+        .addAttribute({ name: 'description',        type: STRING })
         .addAttribute({ name: 'endpoint',           type: STRING })
-        .addAttribute({ name: 'when',               type: DATETIME })       // todo: autovalue -> now (now + period)
+        .addAttribute({ name: 'email',              type: STRING })
+        .addAttribute({ name: 'created',            type: DATETIME })       // todo: autovalue -> now (now + period)
         .addAttribute({ name: 'keys',               type: CHILD(ns('KeyPair')) })
         // .addAttribute({ name: 'admin',              type: CHILD(ns('KeyPair')) })
-        .key('name')
+        .key('installation')
     ;
 
     const serviceRegistrationRequest = await sbuilder.build();
@@ -51,11 +52,12 @@ const responsibility    = 'identity.services.provider';
     sbuilder = new SchemaBuilder();
     sbuilder.name('Service')
         .ref(ns('Service'))
-        .addAttribute({ name: 'name',               type: STRING, index: true })
         .addAttribute({ name: 'sid',                type: STRING, index: true })
         .addAttribute({ name: 'installation',       type: STRING, index: true })
+        .addAttribute({ name: 'description',        type: STRING })
         .addAttribute({ name: 'endpoint',           type: STRING })
-        .addAttribute({ name: 'since',              type: DATETIME })
+        .addAttribute({ name: 'email',              type: STRING })
+        .addAttribute({ name: 'created',            type: DATETIME })       // todo: autovalue -> now (now + period)
         .addAttribute({ name: 'keys',               type: CHILD(ns('KeyPair')) })
         // .addAttribute({ name: 'admin',              type: CHILD(ns('KeyPair')) })
         .key('sid')
