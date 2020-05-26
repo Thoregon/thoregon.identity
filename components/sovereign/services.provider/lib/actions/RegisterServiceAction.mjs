@@ -22,7 +22,7 @@ export default class RegisterServiceAction  extends Action {
 
         let collection = await bc.getCollection('registrationrequests');
         await doAsync();
-        let content = await collection.list;
+        // let content = await collection.list;
         let requests = await collection.find(item => item.code === payload.code);     // this a random one time code
 
         if (requests.length < 1) {
@@ -39,17 +39,15 @@ export default class RegisterServiceAction  extends Action {
             installation: sidrequest.installation,
             endpoint: sidrequest.endpoint,
             email: sidrequest.email,
-            pubkeys: sidrequest.keys
+            pubkeys: sidrequest.keys,
+            processed: universe.now
         }
         let hendpoint = endpointhost(sidrequest.installation);
 
         // create service
-        await services.add(service);
+        let servicerequest = await services.add(service);
 
-        // mark request as done
-        let dbrequest = collection.solid(sidrequest);
-        dbrequest.processed = universe.now;
-        dbrequest.sid = sid;
+        // todo [REFACTOR]: directly answer SID, not via the endpoint
 
         let request = universe.www.request;
         // invoke the services endpoint; both cases success/error
@@ -57,6 +55,8 @@ export default class RegisterServiceAction  extends Action {
             // todo [OPEN]: check answer, if an error, don't register the service!
             universe.logger.debug(`[RegisterServiceAction] result: ${body}`);
         });
+
+        return servicerequest;
     }
 
 
