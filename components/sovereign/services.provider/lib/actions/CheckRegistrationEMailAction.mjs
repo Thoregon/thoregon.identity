@@ -53,7 +53,7 @@ export default class CheckRegistrationEMailAction extends Action {
             if (error || response.statusCode !== 200) {
                 let api = makeapi(path.join(apiendpoint, apirequest));
                 // Provider could not prove control of the domain
-                request.put(`${hendpoint}${api}?status=ERROR&message=RegistrationRequestFailed-NoDomainOwnership&code=${sidrequest.code}`, (error, response, body) => {
+                request.put(`${hendpoint}${api}?status=ERROR&message=RegistrationRequestFailed-NoDomainOwnership&code=${code}`, (error, response, body) => {
                     // todo
                     // universe.logger.debug(`[CheckRegistrationEMailAction] result`);
                 });
