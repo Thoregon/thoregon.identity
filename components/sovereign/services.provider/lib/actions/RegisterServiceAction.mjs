@@ -13,7 +13,7 @@ import Action           from "/thoregon.tru4D/lib/action/action.mjs";
 const host = 'http://localhost:8282';  // localhost:8282
 const test = !!universe.idtest;
 
-const endpointhost  = (inst) => test ? host : inst;
+const endpointhost  = (installation) => test ? host : `https://${installation}`;
 const makeapi       = (path) => path.startsWith('/') ? path : `/${path}`;
 const apirequest    = 'sid';
 
