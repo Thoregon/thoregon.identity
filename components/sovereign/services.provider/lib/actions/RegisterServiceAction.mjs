@@ -15,7 +15,7 @@ const test = !!universe.idtest;
 
 const endpointhost  = (inst) => test ? host : inst;
 const makeapi       = (path) => path.startsWith('/') ? path : `/${path}`;
-const apirequest    = 'sidrequest';
+const apirequest    = 'sid';
 
 export default class RegisterServiceAction  extends Action {
 
@@ -26,10 +26,10 @@ export default class RegisterServiceAction  extends Action {
         let collection = await bc.getCollection('registrationrequests');
         await doAsync();
         // let content = await collection.list;
-        let requests = await collection.find(item => item.code === payload.code);     // this a random one time code
+        let requests = await collection.find(item => item.mailcode === payload.check);     // this a random one time code
 
         if (requests.length < 1) {
-            universe.logger.warn(`[RegisterServiceAction] exec, request not found: ${payload.code}`)
+            universe.logger.warn(`[RegisterServiceAction] exec, request not found: ${payload.check}`)
             return;
         }
         let sidrequest = requests[0];
@@ -55,7 +55,7 @@ export default class RegisterServiceAction  extends Action {
         let request = universe.www.request;
         // invoke the services endpoint; both cases success/error
         let api = makeapi(path.join(sidrequest.apiendpoint, apirequest));
-        request.put(`${hendpoint}${api}?status=success&sid=${sid}`, (error, response, body) => {
+        request.put(`${hendpoint}${api}?status=success&sid=${sid}&code=${sidrequest.code}`, (error, response, body) => {
             // todo [OPEN]: check answer, if an error, don't register the service!
             universe.logger.debug(`[RegisterServiceAction] result: ${body}`);
         });
@@ -79,7 +79,7 @@ export default class RegisterServiceAction  extends Action {
         let hendpoint = endpointhost(sidrequest.installation);
         // invoke the services endpoint; case: error
         let api = makeapi(path.join(sidrequest.apiendpoint, apirequest));
-        request.put(`${hendpoint}${api}?status=error&message=CantAddService-${errmsgs}`, (error, response, body) => {
+        request.put(`${hendpoint}${api}?status=error&message=CantAddService-${errmsgs}&code=${sidrequest.code}`, (error, response, body) => {
             // todo
             universe.logger.debug(`[RegisterServiceAction] result: ${body}`);
         });

@@ -13,7 +13,7 @@ const host = 'http://localhost:8282';  // localhost:8282
 const test = !!universe.idtest;
 
 const endpointhost  = (installation) => test ? host : `https://${installation}`;
-const apirequest    = 'sidrequest';
+const apirequest    = 'sid';
 
 const thatsmeconfirm    = test ? 'http://localhost:8282/serviceproviders/confirm' : 'https://api.thatsme.plus/serviceproviders/confirm';
 const makeapi       = (path) => path.startsWith('/') ? path : `/${path}`;
@@ -28,6 +28,7 @@ export default class CheckRegistrationEMailAction extends Action {
             description,
             installation,
             email,
+            code,
             requested,
             apiendpoint,
         } = payload;
@@ -38,9 +39,9 @@ export default class CheckRegistrationEMailAction extends Action {
         // get the request
         let collection = await bc.getCollection('registrationrequests');
         // let sidrequest = await bc.find(item => item.name === name);
-        let registrationrequest = { installation, email, description, apiendpoint, keys, requested, created: universe.now } ;      // todo: validate
-        const code = rnd(64);
-        registrationrequest.code = code;
+        let registrationrequest = { installation, email, code, description, apiendpoint, keys, requested, created: universe.now } ;      // todo: validate
+        const mailcode = rnd(64);
+        registrationrequest.mailcode = mailcode;
         await collection.add(registrationrequest);
 
         // now get the solid (persistent) object
@@ -52,7 +53,7 @@ export default class CheckRegistrationEMailAction extends Action {
             if (error || response.statusCode !== 200) {
                 let api = makeapi(path.join(apiendpoint, apirequest));
                 // Provider could not prove control of the domain
-                request.put(`${hendpoint}${api}?status=error&message=RegistrationRequestFailed-NoDomainOwnership`, (error, response, body) => {
+                request.put(`${hendpoint}${api}?status=error&message=RegistrationRequestFailed-NoDomainOwnership&code=${sidrequest.code}`, (error, response, body) => {
                     // todo
                     // universe.logger.debug(`[CheckRegistrationEMailAction] result`);
                 });
@@ -65,7 +66,7 @@ export default class CheckRegistrationEMailAction extends Action {
     }
 
     async checkEMail(registrationrequest) {
-        let code = registrationrequest.code;
+        let mailcode = registrationrequest.mailcode;
         let email = registrationrequest.email;
         // get SMTP transport
         let transport = universe.www.getSMTPtransport("testsmtp");      // todo: make configurable
@@ -77,7 +78,7 @@ export default class CheckRegistrationEMailAction extends Action {
             from: '"Test" <test@bernhard-lukassen.com>', // sender address
             to: email, // list of receivers
             subject: "Confirm Email", // Subject line
-            text: `Confirm EMail:\n\n${thatsmeconfirm}?code=${code}\n\nthatsme.plus`
+            text: `Confirm EMail:\n\n${thatsmeconfirm}?check=${mailcode}\n\nthatsme.plus`
             // html: "<b>Hello world?</b>", // html body
         });
     }
@@ -89,7 +90,7 @@ export default class CheckRegistrationEMailAction extends Action {
         // invoke the services endpoint; case: error
         // invoke the services endpoint; case: error
         let api = makeapi(path.join(payload.apiendpoint, apirequest));
-        request.put(`${hendpoint}${api}?status=error&message=RegistrationRequestFailed-${errmsgs}`, (error, response, body) => {
+        request.put(`${hendpoint}${api}?status=error&message=RegistrationRequestFailed-${errmsgs}&code=${sidrequest.code}`, (error, response, body) => {
             // todo
             universe.logger.debug(`[CheckRegistrationEMailAction] result: ${body}`);
         });

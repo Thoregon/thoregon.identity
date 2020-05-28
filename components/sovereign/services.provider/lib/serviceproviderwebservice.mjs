@@ -62,9 +62,9 @@ export default class ServiceProviderWebservice extends RestFull {
         wwwroot.get('confirm', async (req, res, data, utils) => {
             const bc        = tru4d.context(ctxid);
             try {
-                let code = data.query.code;
+                let check = data.query.check;
 
-                let createservice = bc.commands.RegisterServiceCommand({ code });
+                let createservice = bc.commands.RegisterServiceCommand({ check });
                 await createservice.commit();
 
                 res.send('ACK');
@@ -74,13 +74,14 @@ export default class ServiceProviderWebservice extends RestFull {
         });
 
         // this a a test sink to get the registered SID
-        wwwroot.put('testsid/sidrequest', async (req, res, data, utils) => {
+        wwwroot.put('testsid/sid', async (req, res, data, utils) => {
             // const bc        = tru4d.context(ctxid);
             let q = req.query;
             let status = q.status;
             let sid = q.sid;
             let msg = q.message;
-            universe.logger.info(`[Got SID] ${status} ${sid} ${msg}`);
+            let code = q.code;
+            universe.logger.info(`[Got SID] ${status} ${sid} ${msg} ${code}`);
         });
 
         wwwroot.get('service', async (req, res, data, utils) => {
