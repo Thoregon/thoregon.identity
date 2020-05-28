@@ -56,7 +56,7 @@ export default class RegisterServiceAction  extends Action {
         // invoke the services endpoint; both cases success/error
         let api = makeapi(path.join(sidrequest.apiendpoint, apirequest));
         let answer = `${hendpoint}${api}?status=SUCCESS&sid=${sid}&code=${sidrequest.code}`;
-        universe.log('[RegisterServiceAction] apiendpoint ', answer)
+        universe.logger.info('[RegisterServiceAction] apiendpoint ', answer)
         request.put(answer, (error, response, body) => {
             // todo [OPEN]: check answer, if an error, don't register the service!
             universe.logger.debug(`[RegisterServiceAction] result: ${error} ${response} ${body}`);
