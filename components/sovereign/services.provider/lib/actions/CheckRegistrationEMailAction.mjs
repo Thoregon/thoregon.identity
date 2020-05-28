@@ -90,7 +90,7 @@ export default class CheckRegistrationEMailAction extends Action {
         // invoke the services endpoint; case: error
         // invoke the services endpoint; case: error
         let api = makeapi(path.join(payload.apiendpoint, apirequest));
-        request.put(`${hendpoint}${api}?status=error&message=RegistrationRequestFailed-${errmsgs}&code=${sidrequest.code}`, (error, response, body) => {
+        request.put(`${hendpoint}${api}?status=error&message=RegistrationRequestFailed-${errmsgs}&code=${payload.code}`, (error, response, body) => {
             // todo
             universe.logger.debug(`[CheckRegistrationEMailAction] result: ${body}`);
         });
