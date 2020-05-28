@@ -4,15 +4,18 @@
  * @author: Bernhard Lukassen
  */
 
+import path             from "/path";
 import { doAsync }      from "/evolux.universe";
 import { forEach }      from "/evolux.util";
 
 import Action           from "/thoregon.tru4D/lib/action/action.mjs";
 
-const host = 'http://192.168.37.53:8282';  // localhost:8282
+const host = 'http://localhost:8282';  // localhost:8282
 const test = !!universe.idtest;
 
-const endpointhost = (inst) => test ? host : inst;
+const endpointhost  = (inst) => test ? host : inst;
+const makeapi       = (path) => path.startsWith('/') ? path : `/${path}`;
+const apirequest    = 'sidrequest';
 
 export default class RegisterServiceAction  extends Action {
 
@@ -37,7 +40,7 @@ export default class RegisterServiceAction  extends Action {
             sid: sid,
             name: sidrequest.name,
             installation: sidrequest.installation,
-            endpoint: sidrequest.endpoint,
+            apiendpoint: sidrequest.apiendpoint,
             email: sidrequest.email,
             pubkeys: sidrequest.keys,
             processed: universe.now
@@ -47,11 +50,12 @@ export default class RegisterServiceAction  extends Action {
         // create service
         let servicerequest = await services.add(service);
 
-        // todo [REFACTOR]: directly answer SID, not via the endpoint
+        // todo [OPEN]: check if confirmed
 
         let request = universe.www.request;
         // invoke the services endpoint; both cases success/error
-        request.put(`${hendpoint}${sidrequest.endpoint}?status=success&sid=${sid}`, (error, response, body) => {
+        let api = makeapi(path.join(sidrequest.apiendpoint, apirequest));
+        request.put(`${hendpoint}${api}?status=success&sid=${sid}`, (error, response, body) => {
             // todo [OPEN]: check answer, if an error, don't register the service!
             universe.logger.debug(`[RegisterServiceAction] result: ${body}`);
         });
@@ -71,10 +75,11 @@ export default class RegisterServiceAction  extends Action {
             universe.logger.warn(`[RegisterServiceAction] rollback, request not found: ${payload.code}`)
             return;
         }
-        let sidrequest = request[0];
+        let sidrequest = requests[0];
         let hendpoint = endpointhost(sidrequest.installation);
         // invoke the services endpoint; case: error
-        request.put(`${hendpoint}${sidrequest.endpoint}?status=error&message=CantAddService-${errmsgs}`, (error, response, body) => {
+        let api = makeapi(path.join(sidrequest.apiendpoint, apirequest));
+        request.put(`${hendpoint}${api}?status=error&message=CantAddService-${errmsgs}`, (error, response, body) => {
             // todo
             universe.logger.debug(`[RegisterServiceAction] result: ${body}`);
         });

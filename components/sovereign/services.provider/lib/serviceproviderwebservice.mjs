@@ -38,7 +38,7 @@ export default class ServiceProviderWebservice extends RestFull {
                 let servicedata = data.content;
 
                 let requestservice = bc.commands.CreateServiceRegistrationRequestCommand(servicedata);
-                await requestservice.commit();
+                let sidrequest = await requestservice.commit();
 
                 res.send('ACK');
             } catch (e) {
@@ -74,7 +74,7 @@ export default class ServiceProviderWebservice extends RestFull {
         });
 
         // this a a test sink to get the registered SID
-        wwwroot.put('testsid', async (req, res, data, utils) => {
+        wwwroot.put('testsid/sidrequest', async (req, res, data, utils) => {
             // const bc        = tru4d.context(ctxid);
             let q = req.query;
             let status = q.status;
