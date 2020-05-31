@@ -40,10 +40,10 @@ export default class ServiceProviderWebservice extends RestFull {
                 let requestservice = bc.commands.CreateServiceRegistrationRequestCommand(servicedata);
                 let sidrequest = await requestservice.commit();
 
-                res.send('ACK');
+                res.send(`{ "status": "SUCCESS", "request": "${sidrequest.mailcode}" }`);
             } catch (e) {
                 universe.logger.error("[ServiceProviderWebservice->SID Request]", e);
-                res.status(500).send('NACK');
+                res.status(500).send(`{ "status": "ERROR" "msg": "${e.message}"}`);
             }
         });
 
@@ -51,10 +51,10 @@ export default class ServiceProviderWebservice extends RestFull {
         wwwroot.post('redorequest', async (req, res, data, utils) => {
             const bc = tru4d.context(ctxid);
             try {
-                res.send('ACK');
+                res.send(`{ "status": "SUCCESS" } `);
             } catch (e) {
                 universe.logger.error("[ServiceProviderWebservice->SID Request]", e);
-                res.status(500).send('NACK');
+                res.status(500).send(`{ "status": "ERROR" "msg": "${e.message}"}`);
             }
         });
 
@@ -67,9 +67,9 @@ export default class ServiceProviderWebservice extends RestFull {
                 let createservice = bc.commands.RegisterServiceCommand({ check });
                 await createservice.commit();
 
-                res.send('ACK');
+                res.send(`{ "status": "SUCCESS" } `);
             } catch (e) {
-                res.status(500).send('NACK');
+                res.status(500).send(`{ "status": "ERROR" "msg": "${e.message}"}`);
             }
         });
 
@@ -92,7 +92,7 @@ export default class ServiceProviderWebservice extends RestFull {
             // required data:
             //  - authorization
             //  -
-            res.send('ACK');
+            res.send(`{ "status": "SUCCESS" } `);
         });
         wwwroot.put('service', async (req, res, data, utils) => {
             const bc        = tru4d.context(ctxid);
@@ -102,7 +102,7 @@ export default class ServiceProviderWebservice extends RestFull {
             // required data:
             //  - authorization
             //  -
-            res.send('ACK');
+            res.send(`{ "status": "SUCCESS" } `);
         });
         wwwroot.delete('service', async (req, res, data, utils) => {
             const bc        = tru4d.context(ctxid);
@@ -112,7 +112,7 @@ export default class ServiceProviderWebservice extends RestFull {
             // required data:
             //  - authorization
             //  -
-            res.send('ACK');
+            res.send(`{ "status": "SUCCESS" } `);
         });
 
     }

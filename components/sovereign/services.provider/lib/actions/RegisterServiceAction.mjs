@@ -57,10 +57,7 @@ export default class RegisterServiceAction  extends Action {
         let api = makeapi(path.join(sidrequest.apiendpoint, apirequest));
         let answer = `${hendpoint}${api}?status=SUCCESS&sid=${sid}&code=${sidrequest.code}`;
         universe.logger.info('[RegisterServiceAction] apiendpoint ', answer)
-        request.put(answer, (error, response, body) => {
-            // todo [OPEN]: check answer, if an error, don't register the service!
-            universe.logger.debug(`[RegisterServiceAction] result: ${error} ${response} ${body}`);
-        });
+        await request.put(answer);
 
         return servicerequest;
     }
@@ -81,9 +78,6 @@ export default class RegisterServiceAction  extends Action {
         let hendpoint = endpointhost(sidrequest.installation);
         // invoke the services endpoint; case: error
         let api = makeapi(path.join(sidrequest.apiendpoint, apirequest));
-        request.put(`${hendpoint}${api}?status=ERROR&message=CantAddService-${errmsgs}&code=${sidrequest.code}`, (error, response, body) => {
-            // todo
-            universe.logger.debug(`[RegisterServiceAction] result: ${body}`);
-        });
+        await request.put(`${hendpoint}${api}?status=ERROR&message=CantAddService-${errmsgs}&code=${sidrequest.code}`);
     }
 }
