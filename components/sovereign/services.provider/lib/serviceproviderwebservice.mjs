@@ -40,7 +40,8 @@ export default class ServiceProviderWebservice extends RestFull {
                 let requestservice = bc.commands.CreateServiceRegistrationRequestCommand(servicedata);
                 let sidrequest = await requestservice.commit();
 
-                res.send(`{ "status": "SUCCESS", "request": "${sidrequest.mailcode}" }`);
+                res.send(`{ "status": "SUCCESS" }`);
+                // res.send(`{ "status": "SUCCESS", "request": "${sidrequest.mailcode}" }`);
             } catch (e) {
                 universe.logger.error("[ServiceProviderWebservice->SID Request]", e);
                 res.status(500).send(`{ "status": "ERROR" "msg": "${e.message}"}`);
@@ -82,6 +83,7 @@ export default class ServiceProviderWebservice extends RestFull {
             let msg = q.message;
             let code = q.code;
             universe.logger.info(`[Got SID] ${status} ${sid} ${msg} ${code}`);
+            res.send(`{ "status": "SUCCESS" } `);
         });
 
         wwwroot.get('service', async (req, res, data, utils) => {

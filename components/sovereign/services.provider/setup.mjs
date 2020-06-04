@@ -4,6 +4,7 @@
  * @author: Bernhard Lukassen
  */
 
+
 import BoundedContextBuilder, { CreateCommand } from '/thoregon.tru4D';
 import RegisterServiceAction                    from "./lib/actions/RegisterServiceAction.mjs";
 import CheckRegistrationEMailAction             from "./lib/actions/CheckRegistrationEMailAction.mjs";

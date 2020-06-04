@@ -6,10 +6,9 @@
 
 import path             from "/path";
 import { forEach }      from "/evolux.util";
-
 import Action           from "/thoregon.tru4D/lib/action/action.mjs";
-import {ErrNoThatsmePulsResource} from "../errors.mjs";
-import {ErrSIDRequestExists} from "../../../../../../../thoregon-cli/lib/errors.mjs";
+
+import {ErrNoThatsmePlusResource, ErrSIDRequestExists } from "../errors.mjs";
 
 const host = 'http://localhost:8282';  // localhost:8282
 const test = !!universe.idtest;
@@ -20,11 +19,13 @@ const apirequest    = 'sid';
 const thatsmeconfirm    = test ? 'http://localhost:8282/serviceproviders/confirm' : 'https://api.thatsme.plus/serviceproviders/confirm';
 const makeapi       = (path) => path.startsWith('/') ? path : `/${path}`;
 
+
 export default class CheckRegistrationEMailAction extends Action {
 
     async exec(command, payload, control, bc, errors) {
         const rnd = universe.Gun.text.random;
         const SEA = universe.Gun.SEA;
+        const REF = universe.Matter.REF;
 
         let {
             description,
@@ -42,11 +43,15 @@ export default class CheckRegistrationEMailAction extends Action {
         let registrationrequest = await requests.find(item => item.installation === installation);
 
         // check if a request for the installation exists
-        if (!registrationrequest) {
-            throw ErrSIDRequestExists(installation);
+        if (registrationrequest.length > 0) {
+            registrationrequest = registrationrequest[0];
+            let ref = registrationrequest[REF];
+            // todo [REFACTOR]: use ModifyAction --> child objects needs to be checked
+            // Object.assign(ref, { email, code, description, apiendpoint, keys, requested, amended: universe.now } );
+            // throw ErrSIDRequestExists(installation);
         } else {
             // let sidrequest = await bc.find(item => item.name === name);
-            registrationrequest = { installation, email, code, description, apiendpoint, keys, requested, created: universe.now } ;      // todo: validate
+            registrationrequest = { installation, email, code, description, apiendpoint, keys, requested, inception: universe.now } ;      // todo: validate
             const mailcode = rnd(64);
             registrationrequest.mailcode = mailcode;
             await requests.add(registrationrequest);
@@ -58,12 +63,12 @@ export default class CheckRegistrationEMailAction extends Action {
         try {
             let request = universe.www.request;
             // invoke the services endpoint; both cases success/error
-            await body = await request(`${hendpoint}/thatsme.plus`);
+            let body = await request(`${hendpoint}/thatsme.plus`);
 
             // todo [OPEN]: check answer, if an error, don't register the service!
             universe.logger.debug(`[CheckRegistrationEMailAction] result: ${body}`);
         } catch (e) {
-            throw new ErrNoThatsmePulsResource();
+            throw new ErrNoThatsmePlusResource();
             // let api = makeapi(path.join(apiendpoint, apirequest));
             // Provider could not prove control of the domain
             // let bodysid = await request.put(`${hendpoint}${api}?status=ERROR&message=RegistrationRequestFailed-NoDomainOwnership&code=${code}`);

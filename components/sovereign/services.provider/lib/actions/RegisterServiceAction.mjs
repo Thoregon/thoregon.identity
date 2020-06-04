@@ -22,6 +22,8 @@ export default class RegisterServiceAction  extends Action {
     async exec(command, payload, control, bc, errors) {
         const rnd = universe.Gun.text.random;
         const SEA = universe.Gun.SEA;
+        const REF = universe.Matter.REF;
+        const now = universe.now;
 
         let collection = await bc.getCollection('registrationrequests');
         await doAsync();
@@ -34,32 +36,57 @@ export default class RegisterServiceAction  extends Action {
         }
         let sidrequest = requests[0];
 
-        const sid = rnd(128);
         let services = await bc.getCollection('services');
-        let service = {
-            sid: sid,
-            name: sidrequest.name,
-            installation: sidrequest.installation,
-            apiendpoint: sidrequest.apiendpoint,
-            email: sidrequest.email,
-            pubkeys: sidrequest.keys,
-            processed: universe.now
-        }
+        let service = await services.find(item => item.installation === sidrequest.installation);
+
+        let sid;
         let hendpoint = endpointhost(sidrequest.installation);
 
-        // create service
-        let servicerequest = await services.add(service);
+        if (service.length > 0) {
+            service = service[0];
+            sid = service.sid;
+            Object.assign(ref, {
+                name:           sidrequest.name,
+                apiendpoint:    sidrequest.apiendpoint,
+                email:          sidrequest.email,
+                pubkeys:        sidrequest.keys,
+                inception:      now,
+                amended:        now,
+                created:        now,
+                processed:      now
+            } );
+        } else {
+            sid = rnd(128);
+            // todo [REFACTOR]: use CreateCommand
+            service = {
+                installation:   sidrequest.installation,
+                sid:            sid,
+                name:           sidrequest.name,
+                apiendpoint:    sidrequest.apiendpoint,
+                email:          sidrequest.email,
+                pubkeys:        sidrequest.keys,
+                inception:      now,
+                amended:        now,
+                created:        now,
+                processed:      now
+            }
+
+            // create service
+            service = await services.add(service);
+        }
 
         // todo [OPEN]: check if confirmed
+        // todo [REFACTOR]: use ModifyCommand (better ProcessedCommand)
+        // Object.assign(sidrequest[REF], { processed: now });
 
         let request = universe.www.request;
         // invoke the services endpoint; both cases success/error
         let api = makeapi(path.join(sidrequest.apiendpoint, apirequest));
         let answer = `${hendpoint}${api}?status=SUCCESS&sid=${sid}&code=${sidrequest.code}`;
         universe.logger.info('[RegisterServiceAction] apiendpoint ', answer)
-        await request.put(answer);
+        /*await*/ request.put(answer);      // todo [OPEN]: do we need the response?
 
-        return servicerequest;
+        return service;
     }
 
 
@@ -75,9 +102,10 @@ export default class RegisterServiceAction  extends Action {
             return;
         }
         let sidrequest = requests[0];
-        let hendpoint = endpointhost(sidrequest.installation);
+        let hendpoint = endpointhost(payload.installation);
         // invoke the services endpoint; case: error
         let api = makeapi(path.join(sidrequest.apiendpoint, apirequest));
         await request.put(`${hendpoint}${api}?status=ERROR&message=CantAddService-${errmsgs}&code=${sidrequest.code}`);
     }
+
 }
