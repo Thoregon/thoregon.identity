@@ -94,6 +94,7 @@ export default class CheckRegistrationEMailAction extends Action {
             subject: "Please Confirm Email", // Subject line
             text: `Confirm EMail:\n\n${thatsmeconfirm}?check=${mailcode}\n\nthatsme.plus`
         });
+        this.logger(`Sent confirm mail to ${email}`);
     }
 
 /*
