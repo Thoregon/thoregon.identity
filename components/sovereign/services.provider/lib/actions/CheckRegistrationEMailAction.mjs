@@ -45,9 +45,10 @@ export default class CheckRegistrationEMailAction extends Action {
         // check if a request for the installation exists
         if (registrationrequest.length > 0) {
             registrationrequest = registrationrequest[0];
-            let ref = registrationrequest[REF];
+            // let ref = registrationrequest[REF];
+            let ref = universe.matter.root[registrationrequest._['#']];
             // todo [REFACTOR]: use ModifyAction --> child objects needs to be checked
-            // Object.assign(ref, { email, code, description, apiendpoint, keys, requested, amended: universe.now } );
+            Object.assign(ref, { email, code, description, apiendpoint, keys, requested, amended: universe.now } );
             // throw ErrSIDRequestExists(installation);
         } else {
             // let sidrequest = await bc.find(item => item.name === name);
