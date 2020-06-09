@@ -34,6 +34,7 @@ export default class CheckRegistrationEMailAction extends Action {
             code,
             requested,
             apiendpoint,
+            confirmationurl,
         } = payload;
         let keys = payload.keys;
         if (installation.endsWith('/')) installation = installation.slice(0, -1);
@@ -48,11 +49,11 @@ export default class CheckRegistrationEMailAction extends Action {
             // let ref = registrationrequest[REF];
             let ref = universe.matter.root[registrationrequest._['#']];
             // todo [REFACTOR]: use ModifyAction --> child objects needs to be checked
-            Object.assign(ref, { email, code, description, apiendpoint, keys, requested, amended: universe.now } );
+            Object.assign(ref, { email, code, description, apiendpoint, confirmationurl, keys, requested, amended: universe.now } );
             // throw ErrSIDRequestExists(installation);
         } else {
             // let sidrequest = await bc.find(item => item.name === name);
-            registrationrequest = { installation, email, code, description, apiendpoint, keys, requested, inception: universe.now } ;      // todo: validate
+            registrationrequest = { installation, email, code, description, apiendpoint, confirmationurl, keys, requested, inception: universe.now } ;      // todo: validate
             const mailcode = rnd(64);
             registrationrequest.mailcode = mailcode;
             await requests.add(registrationrequest);
