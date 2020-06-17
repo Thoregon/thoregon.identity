@@ -56,7 +56,7 @@ export default class RegisterServiceAction  extends Action {
                 processed:      now
             } );
         } else {
-            sid = rnd(128);
+            sid = rnd(32);
             // todo [REFACTOR]: use CreateCommand
             service = {
                 installation:   sidrequest.installation,
