@@ -14,18 +14,15 @@ const host = 'http://localhost:8282';  // localhost:8282
 const test = !!universe.idtest;
 
 const endpointhost  = (installation) => test ? host : `https://${installation}`;
-const apirequest    = 'sid';
 
 const thatsmeconfirm    = test ? 'http://localhost:8282/serviceproviders/confirm' : 'https://api.thatsme.plus/serviceproviders/confirm';
 const makeapi       = (path) => path.startsWith('/') ? path : `/${path}`;
-
 
 export default class CheckRegistrationEMailAction extends Action {
 
     async exec(command, payload, control, bc, errors) {
         const rnd = universe.Gun.text.random;
         const SEA = universe.Gun.SEA;
-        const REF = universe.Matter.REF;
 
         let {
             description,
@@ -44,6 +41,7 @@ export default class CheckRegistrationEMailAction extends Action {
         let registrationrequest = await requests.find(item => item.installation === installation);
 
         // check if a request for the installation exists
+        // todo [FN]
         if (registrationrequest.length > 0) {
             registrationrequest = registrationrequest[0];
             // let ref = registrationrequest[REF];

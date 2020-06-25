@@ -1,11 +1,19 @@
 /**
- * do the basic setup of channel in thoregon
+ * do the basic setup of single sign on in thoregon
+ *
+ * Commands:
+ * - IdentitySignOn
+ * - IdentitySignOff
+ *
+ * Events:
+ * - IdentitySignOn
+ * - IdentitySignOff
  *
  * @author: Bernhard Lukassen
  */
 
-
-import BoundedContextBuilder, { CreateCommand } from '/thoregon.tru4D';
+import BoundedContextBuilder, { CreateCommand, CommandBuilder } from '/thoregon.tru4D';
+import IdentitySignOnAction             from "./lib/actions/identitysignonaction.mjs";
 
 import SchemaBuilder, { ID, CHILD, REL, INT, REAL, BOOL, STRING, DATE, DATETIME, DURATION, IMAGE, LIST, MAP, SET } from '/evolux.schema';
 
@@ -15,67 +23,20 @@ const ctx               = 'identity.ssi';
 const responsibility    = 'identity.ssi';
 
 (async () => {
-    // build the bounded context
+    let cmdbuilder;
 /*
-    let sbuilder = new SchemaBuilder();
-    sbuilder.name('KeyPair')
-        .ref(ns('KeyPair'))
-        .addAttribute({ name: 'pub',                type: STRING})
-        .addAttribute({ name: 'epub',               type: STRING})
-    ;
 
-    const keysentity = await sbuilder.build();
-
-    sbuilder = new SchemaBuilder();
-    sbuilder.name('ServiceRegistrationRequest')
-        .ref(ns('ServiceRegistrationRequest'))
-        .addAttribute({ name: 'installation',       type: STRING, index: true })
-        .addAttribute({ name: 'description',        type: STRING })
-        .addAttribute({ name: 'endpoint',           type: STRING })
-        .addAttribute({ name: 'email',              type: STRING })
-        .addAttribute({ name: 'created',            type: DATETIME })       // todo: autovalue -> now (now + period)
-        .addAttribute({ name: 'keys',               type: CHILD(ns('KeyPair')) })
-        // .addAttribute({ name: 'admin',              type: CHILD(ns('KeyPair')) })
-        .key('installation')
-    ;
-
-    const serviceRegistrationRequest = await sbuilder.build();
-
-    let checkemailaction = new CheckRegistrationEMailAction();
-    checkemailaction.commandid = 'CreateServiceRegistrationRequestCommand'
-
-    sbuilder = new SchemaBuilder();
-    sbuilder.name('Service')
-        .ref(ns('Service'))
-        .addAttribute({ name: 'sid',                type: STRING, index: true })
-        .addAttribute({ name: 'installation',       type: STRING, index: true })
-        .addAttribute({ name: 'description',        type: STRING })
-        .addAttribute({ name: 'endpoint',           type: STRING })
-        .addAttribute({ name: 'email',              type: STRING })
-        .addAttribute({ name: 'created',            type: DATETIME })       // todo: autovalue -> now (now + period)
-        .addAttribute({ name: 'keys',               type: CHILD(ns('KeyPair')) })
-        // .addAttribute({ name: 'admin',              type: CHILD(ns('KeyPair')) })
-        .key('sid')
-    ;
-
-    const service = await sbuilder.build();
-
-    let registeraction = new RegisterServiceAction();
+    cmdbuilder = new CommandBuilder();
+    cmdbuilder.name('IdentitySignOn')
+        .addParam({ name: 'serviceid', type: STRING })
+        .addParam({ name: 'signonid', type: STRING })
+        .addAction(new IdentitySignOnAction());
+    const identitySignOn = await cmdbuilder.build();
 
     const ctxbuilder = new BoundedContextBuilder();
-
     ctxbuilder.use(ctx)
-        .addSchema(serviceRegistrationRequest)
-        .validate(true)
-        .addCommand('CreateServiceRegistrationRequestCommand', responsibility, CreateCommand)
-        .collection('registrationrequests', 'shared')
-        .addSchema(service)
-        .validate(true)
-        .addDefaults(responsibility)
-        .addCommand('RegisterServiceCommand', responsibility, CreateCommand)
-        .collection('services', 'shared')
-        .withAction('CheckRegistrationEMailAction', checkemailaction, 'CreateServiceRegistrationRequestCommand')
-        .withAction('RegisterServiceAction', registeraction, 'RegisterServiceCommand')
+        .withCommand(identitySignOn, responsibility)
+        .defineEvent('IdentitySignOn')
         .release('2020-05-13.1')
     ;
 
