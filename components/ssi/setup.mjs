@@ -24,7 +24,6 @@ const responsibility    = 'identity.ssi';
 
 (async () => {
     let cmdbuilder;
-/*
 
     cmdbuilder = new CommandBuilder();
     cmdbuilder.name('IdentitySignOn')
@@ -42,7 +41,7 @@ const responsibility    = 'identity.ssi';
 
     await ctxbuilder.build();
     universe.logger.info(`Bounded Context: ${ctx} -> 'Identity Service Registration'`);
-*/
+
 })();
 
 export default { ctx };
