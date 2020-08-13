@@ -11,23 +11,14 @@
  * @author: Bernhard Lukassen
  */
 
-import { RestFull}                  from "/evolux.web";
+import { RestFull}           from "/evolux.web";
+import RegisterServiceAction from "./actions/registerserviceaction.mjs";
 
 export default class ServiceProviderWebservice extends RestFull {
 
     connect(wwwroot, ctxid) {
         const tru4d     = universe.services.tru4d;
 
-        // todo: service registration creates an identity. this is then necessary to modify or get the service registration data
-        wwwroot.get('authorize', async (req, res, data, utils) => {
-            const bc        = tru4d.context(ctxid);
-            let params = data.query;
-            let uid = params.uid;
-            let pwd = params.pwd;
-            // returns a random salt and the public key from this service
-            // clients must pass
-            res.send('ACK');
-        });
 
         // service actions
 
@@ -37,6 +28,7 @@ export default class ServiceProviderWebservice extends RestFull {
             try {
                 let servicedata = data.content;
 
+                let action = new RegisterServiceAction();
                 let requestservice = bc.commands.CreateServiceRegistrationRequestCommand(servicedata);
                 let sidrequest = await requestservice.commit();
 
@@ -59,7 +51,7 @@ export default class ServiceProviderWebservice extends RestFull {
             }
         });
 
-        // email confirm link
+        // email confirm link target
         wwwroot.get('confirm', async (req, res, data, utils) => {
             const bc        = tru4d.context(ctxid);
             try {
@@ -84,6 +76,19 @@ export default class ServiceProviderWebservice extends RestFull {
             let code = q.code;
             universe.logger.info(`[Got SID] ${status} ${sid} ${msg} ${code}`);
             res.send(`{ "status": "SUCCESS" } `);
+        });
+
+        /**** TODO: methods below must be correctly implmented ******************************************************/
+
+        // todo: service registration creates an identity. this is then necessary to modify or get the service registration data
+        wwwroot.get('authorize', async (req, res, data, utils) => {
+            const bc        = tru4d.context(ctxid);
+            let params = data.query;
+            let uid = params.uid;
+            let pwd = params.pwd;
+            // returns a random salt and the public key from this service
+            // clients must pass
+            res.send('ACK');
         });
 
         wwwroot.get('service', async (req, res, data, utils) => {

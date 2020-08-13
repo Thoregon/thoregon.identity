@@ -46,29 +46,29 @@ export default class RegisterServiceAction  extends Action {
             service = service[0];
             sid = service.sid;
             Object.assign(ref, {
-                name:           sidrequest.name,
-                apiendpoint:    sidrequest.apiendpoint,
-                email:          sidrequest.email,
-                pubkeys:        sidrequest.keys,
-                inception:      now,
-                amended:        now,
-                created:        now,
-                processed:      now
+                name       : sidrequest.name,
+                apiendpoint: sidrequest.apiendpoint,
+                email      : sidrequest.email,
+                keys       : sidrequest.keys,
+                inception  : now,
+                amended    : now,
+                created    : now,
+                processed  : now
             } );
         } else {
             sid = rnd(32);
             // todo [REFACTOR]: use CreateCommand
             service = {
-                installation:   sidrequest.installation,
-                sid:            sid,
-                name:           sidrequest.name,
-                apiendpoint:    sidrequest.apiendpoint,
-                email:          sidrequest.email,
-                pubkeys:        sidrequest.keys,
-                inception:      now,
-                amended:        now,
-                created:        now,
-                processed:      now
+                installation: sidrequest.installation,
+                sid         : sid,
+                name        : sidrequest.name,
+                apiendpoint : sidrequest.apiendpoint,
+                email       : sidrequest.email,
+                keys        : sidrequest.keys,
+                inception   : now,
+                amended     : now,
+                created     : now,
+                processed   : now
             }
 
             // create service
