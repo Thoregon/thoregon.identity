@@ -6,8 +6,8 @@
 
 
 import BoundedContextBuilder, { CreateCommand } from '/thoregon.tru4D';
-import RegisterServiceAction                    from "./lib/actions/RegisterServiceAction.mjs";
-import CheckRegistrationEMailAction             from "./lib/actions/CheckRegistrationEMailAction.mjs";
+import RegisterServiceAction                    from "./lib/actions/registerserviceaction.mjs";
+import CheckRegistrationEMailAction             from "./lib/actions/checkregistrationemailaction.mjs";
 import ServiceProviderWebservice                from "./lib/serviceproviderwebservice.mjs";
 
 import SchemaBuilder, { ID, CHILD, REL, INT, REAL, BOOL, STRING, DATE, DATETIME, DURATION, IMAGE, LIST, MAP, SET } from '/evolux.schema';
