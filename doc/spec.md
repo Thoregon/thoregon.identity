@@ -17,6 +17,8 @@ or be defined as Thoregon SSI.
     - either grant basic access automatically
     - or queue request, must be granted manually 
 
+An identity should create a new keypair for each service it connects to.
+Services should not be able to track identities outside their domain.
 
 ## Verifiable Claims (Attests)
 
@@ -24,6 +26,8 @@ Verifiable claims (aka: credentials, attestations) can be assigned to the reflec
 The attestor can only retrieve those verifiable claims issued by himself. 
 A claim is a statement about a subject. A subject is a thing about which claims can be made. 
 Claims are expressed using subject-property-value relationships.
+
+Attests will always be encoded when transferred or displayed, e.g. in a QR code
  
  ## Credentials
  Credentials are a set of metadata, verifiable claims and their proofs
