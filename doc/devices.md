@@ -9,7 +9,12 @@ on start a
 Every user gets in their private space a set of devices 
 The devices 
 
+## Resume from other device
+- select
+- last device
 
+- settings
+    - user global state
 
 ## Browserplugin
 Manage thatsme account
