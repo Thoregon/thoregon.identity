@@ -62,3 +62,10 @@ On public installations without a user, the base setup is delivered by the provi
 A localized setup for the device is created on usage. This setup is stored in the 'localstore'.
 Due to tightening security measures, this setup may be lost during longer periods of inactivity.
 
+## Identity Store
+
+A common memory for all SSI's the user creates. The user can invite a new SSI to 
+use the common store.
+
+An SSI consists only of a key pair with a reference to the identity store.
+   
