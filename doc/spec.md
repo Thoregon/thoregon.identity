@@ -69,3 +69,19 @@ use the common store.
 
 An SSI consists only of a key pair with a reference to the identity store.
    
+# Implementation
+
+Since there will be loaded software from arbitrary vendors and providers, there
+must be protection of secret data like key pairs.
+
+To separate memory (where the key pair is stored), all identity processing is done 
+in a worker in browser, and worker threads in node.
+(check for separate virtual machine contexts in node)
+
+Communication is done via postMessage and addEventListener.
+This should reduce security issues for private keys.
+
+On the app side there is an IdentityReflection which acts as an interface and
+does the communication work.
+
+A VM separation for apps is done from the component loader -> see evolux.dyncomponents

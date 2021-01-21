@@ -1,6 +1,14 @@
 Devices
 =======
 
+## Device Config
+
+- use as 2nd factor 
+    - QRCode
+    - open window (cummunication with pushMessage()) 
+        - login (insecure)
+        - Hardware token (e.g. onlykey)
+
 ## Not signed on
 on start a 
 
@@ -27,6 +35,24 @@ Manage thatsme account. Check possibilities on both OS
    
 - Persistent storage
 
+### OS Widgets
+Native iOS and Android App which can create arbitrary widgets
+    https://www.heise.de/ratgeber/App-Entwicklung-iOS-Widgets-mit-JavaScript-und-Scriptable-schreiben-4988346.html
+    
+Rebuild or use scriptable.app (iOS) and KWGT Kustom Widget Creator (Android)
+See:
+iOS
+- https://scriptable.app/
+- https://gizmodo.com/scriptable-supercharges-ios-14-widgets-like-no-other-ap-1845717081
+- https://github.com/ThisIsBenny/iOS-Widgets
+- https://widget-hub.app/
+- https://gist.github.com/kevinkub/46caebfebc7e26be63403a7f0587f664
+- https://talk.automators.fm/t/widget-examples/7994/4
+Android:
+- https://play.google.com/store/apps/details?id=org.kustom.widget
+- https://gist.github.com/Botiplz/8f26dc40810ff2d39d8bd5fba7d4925c 
+- http://bambuthai.es/when-will-fkyrd/best-kwgt-plugins.html
+
 ## Collaboration
 
 - Gleiche Objekte/Entity wird bearbeitet
@@ -51,3 +77,26 @@ Delegate available function to other devices/users
 - Company Accounts
     - multiple authorized persons
     - limits -> multi confirm
+
+## Temporary Devices
+
+Is available just for a period of time
+- use for travel/business trip
+- secure with a PIN
+- reusable ... can be reactivated for another period
+- one time ... never can be used again (well this can't really be enforced)
+
+## Device Types
+
+Device types are classified by
+- there components
+    - input devices
+    - output devices
+- there usage
+    - mobile
+    - home/office
+    - entertainment e.g. TV
+    - wearable
+    - data center, server like
+- permanent/temporary
+- very secure/others
