@@ -39,3 +39,18 @@ inspired by X.400 (ldap)
 query identities
 
 Thoregon provides a central directory
+
+## Key Pairs for Authorities
+
+Problem is the quality of the key pair. Authorities may not trust
+a self generated key by the user.
+
+- Authority geenrates key pair
+- Pass it to the user 
+    - discard the private key
+- Create attest
+- Identity creates an addition to the attest signed with the keypait
+- Authority rechecks with the pub key if the key pair is used
+
+Solutions with zero knowledge proofs
+Homomorphic Encryption e.g. user supplies an encrypted seed
