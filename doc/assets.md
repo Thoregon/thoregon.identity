@@ -4,6 +4,9 @@ Assets
 Assets are collected in collections, which are assigned to the identity. Therefore, no general ledger of assets is necessary.
 Assets can be deposited and withdrawn from an asset collection.
 
+Store all assets to the resource (identity):
+[Resource oriented programming](https://medium.com/dapperlabs/resource-oriented-programming-bee4d69c8f8e) 
+
 ## Resources
 
 - media
@@ -21,6 +24,10 @@ Assets can be deposited and withdrawn from an asset collection.
 - ownership
 - permissions
     - keypairs of services
+
+## Transactions
+- Transactions per identity
+- Resource centric blockchain (not a blockchain)
 
 ## Predefined Collections
 

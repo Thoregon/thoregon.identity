@@ -1,8 +1,60 @@
 Identiy
 =======
 
+Your own digital self
+
 provides an API layer to enable usage of self sovereign identites
 within Thoregon
+
+## Create SSI
+
+Multiple Identities for differnt usage. Collected together in Thatsme
+e.g.
+- private
+- job
+- official
+- club
+- for each membership a separate identity (keypair) will be used
+
+Collect Entropy
+- Thatsme
+    - three words + one emoji
+    - entropy via video/audio?
+- Threema   https://www.youtube.com/watch?v=iGERXsAx630, https://github.com/threema-ch/threema-web
+    - entropy: finger slide -> ThreemaID
+    - Optional: Nickname, Phone, Email: wird als hash an Server gesendet
+    - Sync über Server
+    - Kontakte über ID Eingabe oder QR Code
+- Jolocom   https://www.youtube.com/watch?v=OmOCNt8aXy8
+    - entropy: 
+        - finger slides on screen -> JolocomID
+        - 12 word seed (generated from entropy)
+- evernym   https://try.connect.me/, https://www.youtube.com/watch?v=HtU42fQhmpw
+    - entropy:
+- discord
+    - username
+    - i'm not a robot 
+    - connect to server
+        - claim account with verification email
+        - password
+- matrix: riot, element
+    - username/password
+    - connect to server 
+    - email for backup
+- tox   https://www.youtube.com/watch?v=453JECGRbGs
+    - username/password
+                  
+Devices über DeviceID oder QR Code verbinden.
+Backups
+- Thatsme
+- Export Vault, with passphrase
+- Collection of QRCodes, with passphrase      
+
+## Devices
+Secure devices with PIN codes (not the keys itself!)
+
+### DID
+https://www.youtube.com/watch?v=Jcfy9wd5bZI
 
 ## Thoregon Identity
 
