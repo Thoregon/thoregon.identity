@@ -5,9 +5,9 @@
  */
 
 
-import BoundedContextBuilder, { CreateCommand } from '/thoregon.tru4D';
-import RegisterServiceAction                    from "./lib/actions/registerserviceaction.mjs";
-import CheckRegistrationEMailAction             from "./lib/actions/checkregistrationemailaction.mjs";
+// import BoundedContextBuilder, { CreateCommand } from '/thoregon.tru4D';
+// import RegisterServiceAction                    from "./lib/actions/registerserviceaction.mjs";
+// import CheckRegistrationEMailAction             from "./lib/actions/checkregistrationemailaction.mjs";
 import ServiceProviderWebservice                from "./lib/serviceproviderwebservice.mjs";
 
 import SchemaBuilder, { ID, CHILD, REL, INT, REAL, BOOL, STRING, DATE, DATETIME, DURATION, IMAGE, LIST, MAP, SET } from '/evolux.schema';
@@ -19,8 +19,11 @@ const responsibility    = 'identity.services.provider';
 
 (async () => {
     // first add the webservices
-    universe.Identity.serviceproviderwebservice = new ServiceProviderWebservice();
-    universe.Identity.serviceproviderwebservice.start();
+    universe.Identity.serviceproviderwebservice = new ServiceProviderWebservice()
+        .addTerminalRoot('api', { a: 'A' })
+        .start();
+
+/*
 
     // build the bounded context
     let sbuilder = new SchemaBuilder();
@@ -87,6 +90,7 @@ const responsibility    = 'identity.services.provider';
 
     await ctxbuilder.build();
     universe.logger.info(`Bounded Context: ${ctx} -> 'Identity Service Registration'`);
+*/
 })();
 
 export default { ctx };

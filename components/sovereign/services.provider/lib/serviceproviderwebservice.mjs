@@ -11,8 +11,8 @@
  * @author: Bernhard Lukassen
  */
 
-import { RestFull}           from "/evolux.web";
-import RegisterServiceAction from "./actions/registerserviceaction.mjs";
+import { RestFull }          from "/evolux.web";
+// import RegisterServiceAction from "./actions/registerserviceaction.mjs";
 
 export default class ServiceProviderWebservice extends RestFull {
 
@@ -24,6 +24,7 @@ export default class ServiceProviderWebservice extends RestFull {
 
         // todo: need an identity to register a service?
         wwwroot.post('sidrequest', async (req, res, data, utils) => {
+            /*
             const bc        = tru4d.context(ctxid);
             try {
                 let servicedata = data.content;
@@ -38,10 +39,13 @@ export default class ServiceProviderWebservice extends RestFull {
                 universe.logger.error("[ServiceProviderWebservice->SID Request]", e);
                 res.status(500).send(`{ "status": "ERROR" "msg": "${e.message}"}`);
             }
+            */
+            res.send({ "status": "SUCCESS" });
         });
 
         // reverify request
         wwwroot.post('redorequest', async (req, res, data, utils) => {
+/*
             const bc = tru4d.context(ctxid);
             try {
                 res.send(`{ "status": "SUCCESS" } `);
@@ -49,10 +53,13 @@ export default class ServiceProviderWebservice extends RestFull {
                 universe.logger.error("[ServiceProviderWebservice->SID Request]", e);
                 res.status(500).send(`{ "status": "ERROR" "msg": "${e.message}"}`);
             }
+*/
+            res.send({ "status": "SUCCESS" });
         });
 
         // email confirm link target
         wwwroot.get('confirm', async (req, res, data, utils) => {
+/*
             const bc        = tru4d.context(ctxid);
             try {
                 let check = data.query.check;
@@ -64,6 +71,8 @@ export default class ServiceProviderWebservice extends RestFull {
             } catch (e) {
                 res.status(500).send(`{ "status": "ERROR" "msg": "${e.message}"}`);
             }
+*/
+            res.send(`{ "status": "SUCCESS" } `);
         });
 
         // this a a test sink to get the registered SID
@@ -78,21 +87,21 @@ export default class ServiceProviderWebservice extends RestFull {
             res.send(`{ "status": "SUCCESS" } `);
         });
 
-        /**** TODO: methods below must be correctly implmented ******************************************************/
-
         // todo: service registration creates an identity. this is then necessary to modify or get the service registration data
         wwwroot.get('authorize', async (req, res, data, utils) => {
+/*
             const bc        = tru4d.context(ctxid);
             let params = data.query;
             let uid = params.uid;
             let pwd = params.pwd;
             // returns a random salt and the public key from this service
             // clients must pass
+*/
             res.send('ACK');
         });
 
         wwwroot.get('service', async (req, res, data, utils) => {
-            const bc        = tru4d.context(ctxid);
+            // const bc        = tru4d.context(ctxid);
             // get the registration data for service
             // check permission with the shared secret handshake
 
@@ -102,7 +111,7 @@ export default class ServiceProviderWebservice extends RestFull {
             res.send(`{ "status": "SUCCESS" } `);
         });
         wwwroot.put('service', async (req, res, data, utils) => {
-            const bc        = tru4d.context(ctxid);
+            // const bc        = tru4d.context(ctxid);
             // update registration for service
             // check permission with the shared secret handshake
 
@@ -112,7 +121,7 @@ export default class ServiceProviderWebservice extends RestFull {
             res.send(`{ "status": "SUCCESS" } `);
         });
         wwwroot.delete('service', async (req, res, data, utils) => {
-            const bc        = tru4d.context(ctxid);
+            // const bc        = tru4d.context(ctxid);
             // delete registration for service
             // check permission with the shared secret handshake
 
