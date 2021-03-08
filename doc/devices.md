@@ -1,6 +1,17 @@
 Devices
 =======
 
+## Personal devices
+Identities can own devices
+- the device the identity is created on is automatically added 
+- devices can be conncted to the identity (e.g. QR code, bluetooth, NFC, ...)
+- adding a device always requires a PIN
+- new devices are restricted
+    - for a grace period
+    - until it is approved from another device
+    - identity always gets warned if another device is added
+    - secure devices with 2FA (e.g. OnlyKey, ...)
+
 ## Device Config
 
 - use as 2nd factor 

@@ -51,6 +51,8 @@ Backups
 - Collection of QRCodes, with passphrase      
 
 ## Devices
+-> devices.md
+
 Secure devices with PIN codes (not the keys itself!)
 
 ### DID
@@ -97,7 +99,7 @@ Thoregon provides a central directory
 Problem is the quality of the key pair. Authorities may not trust
 a self generated key by the user.
 
-- Authority geenrates key pair
+- Authority generates key pair
 - Pass it to the user 
     - discard the private key
 - Create attest
