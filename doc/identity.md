@@ -55,9 +55,6 @@ Backups
 
 Secure devices with PIN codes (not the keys itself!)
 
-### DID
-https://www.youtube.com/watch?v=Jcfy9wd5bZI
-
 ## Thoregon Identity
 
 A storage in the distributed web 
