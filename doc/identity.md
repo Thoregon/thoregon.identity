@@ -69,6 +69,7 @@ Additional behavior and storage
 ## gun
 
 Map gun users to Thoregon
+--> no!
 
 
 ## Onlykey (FIDO)

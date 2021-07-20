@@ -14,6 +14,8 @@ Store all assets to the resource (identity):
 
 ## Claims
 
+
+
 - assurances
 - prepayments
 
