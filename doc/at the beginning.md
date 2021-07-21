@@ -75,7 +75,7 @@ Global variables
 - thoregon
 - universe
 - dorifer
-- me
+- me (myself)
 - device
 
 Renames/Redefines
@@ -94,7 +94,7 @@ There exists a very simple DB interface to store data on the device.
 it is unified for browser and nodeJS --> baseDB
 
 The baseDB is a simple key/value (object) store which is used as anchor
-in the universe. It stores 
+in the universe. It stores local data.
 There is an implementation for nodeJS and browser environments (loaded via index.mjs or index.reliant.mjs)
 
 
@@ -104,7 +104,12 @@ There is an implementation for nodeJS and browser environments (loaded via index
 - if missing, create an id
 - check if there is an SSI associated with this device and use it
 - if missing, use the Ghost Identity
-
+    - a ghost just fulfills the API need, but has no keypair(s) and no entry in any thatsme directory
+- if an app needs more information about the user, e.g. 'nickname' a Guest Identity is created out of the Ghost
+- Or a Hosted Identity is required by the app 
+- If the user wants to become souvereign, he can initiate an SSI and reuse the settings from his current identiy (ghost, guest, hosted)
+    
+    
 - connect all repos
     - dorifer
     - defined for this device
