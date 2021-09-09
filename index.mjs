@@ -4,7 +4,7 @@
  * @author: Bernhard Lukassen
  */
 
-import Controller       from "./lib/controller.mjs";
+import IdentityAccess from "./lib/identityaccess.mjs";
 
-export default new Controller();
+export default new IdentityAccess();
 
