@@ -4,7 +4,7 @@
  * @author: Bernhard Lukassen
  */
 
-import IdentityAccess from "./lib/identityaccess.mjs";
+import IdentityReflection from "./lib/identityreflection.mjs";
 
-export default new IdentityAccess();
+export default new IdentityReflection();
 

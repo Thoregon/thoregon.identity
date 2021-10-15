@@ -8,7 +8,7 @@ within Thoregon
 
 ## Create SSI
 
-Multiple Identities for differnt usage. Collected together in Thatsme
+Multiple Identities for different usage. Collected together in Thatsme
 e.g.
 - private
 - job
@@ -106,3 +106,10 @@ a self generated key by the user.
 
 Solutions with zero knowledge proofs
 Homomorphic Encryption e.g. user supplies an encrypted seed
+
+## Resolvers
+
+self contained multiformats
+- thoregon id (soul)
+- thoregon signed AES256 (384) symetric encrypted
+- thoregon RSA  asymetric encrypted

@@ -238,3 +238,12 @@ Create
 - within this namespace the app/component can define its galaxies
 - apps/components can request access to other namespaces
 - read access to some namespaces - thoregon, thatsme - is granted by default  
+
+
+## Persistence
+
+- entry metadata
+    - system classes (like Credential): always known, available in the 'thoregon' package(s)
+    - reference to a repository: repo/component/library/class 
+    
+ 
