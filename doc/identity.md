@@ -75,6 +75,9 @@ Map gun users to Thoregon
 ## Onlykey (FIDO)
 
 Hardware tokens
+- https://onlykey.io/de
+- https://docs.crp.to/
+- Howto videos: https://onlykey.io/pages/watch
  
 ## Metamask
 
