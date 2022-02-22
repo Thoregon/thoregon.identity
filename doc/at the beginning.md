@@ -212,10 +212,14 @@ the agent listens to a queue where the 'owner' can send the passphrase for the v
 The agent sends a signon request to its owner SSI. each agent has its own request queue
 on the SSI.
   
-
 The device represents the container, vm or server where the peer runs. The device id 
 will also be generated at the very first start.   
 
+In an agent typlically services are running on behalf of the owner
+
+Services can work together in circles 
+
+--> see  wiki/serviceagent.md for the structure
 
 ## SSI API
 
