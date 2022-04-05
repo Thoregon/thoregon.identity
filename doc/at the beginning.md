@@ -111,6 +111,9 @@ apply public access claims to new SSI (they are not stored in the SSI settings)
     - to put into a physical vault
         - QR code, also multiple QR codes e.g. 3 out of 5 needed to recover key
         - 12 words, split into multiple pieces 
+        
+!! --> MFA Bombing: https://www.golem.de/news/lapsus-hackergruppe-umgeht-2fa-mit-einfachem-trick-2203-164236.html
+
 
 Connect Devices
 - login via vault

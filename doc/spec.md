@@ -49,6 +49,9 @@ proof which does not need an further proofs.
 - FIDO2
 - Self-Sovereign Identity
 
+--> https://www.heise.de/hintergrund/FIDO-nimmt-neuen-Anlauf-als-Passwort-Killer-6613194.html
+--> smooth integration of auth providers https://github.com/supertokens/supertokens-core
+
 # Personal Setup & Installation
 
 Base for setup and installed components is always an identity. 
