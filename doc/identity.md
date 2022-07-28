@@ -50,6 +50,10 @@ Backups
 - Export Vault, with passphrase
 - Collection of QRCodes, with passphrase      
 
+### Backup
+
+- generate backup codes to reset "2FA" and attach new ones
+
 ## Devices
 -> devices.md
 
