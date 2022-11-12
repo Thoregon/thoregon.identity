@@ -114,7 +114,11 @@ a self generated key by the user.
 Solutions with zero knowledge proofs
 Homomorphic Encryption e.g. user supplies an encrypted seed
 
-## Resolvers
+## Resolvers & Integrations
+
+- https://github.com/peacekeeper/blockchain-identity
+- https://www.heise.de/news/Gesetzentwurf-Online-Ausweis-soll-aufs-Handy-wird-aber-teuer-5049183.html
+
 
 self contained multiformats
 - thoregon id (soul)
