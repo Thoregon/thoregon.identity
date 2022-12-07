@@ -11,6 +11,9 @@ Identities can own devices
     - until it is approved from another device
     - identity always gets warned if another device is added
     - secure devices with 2FA (e.g. OnlyKey, ...)
+- hit to users: if not 2FA or MFA (Multifactor Authentication) use a password Manager
+  - Bitwarden
+- offer Thoregon Browser Extension (Plugin)
 
 ## Device Config
 

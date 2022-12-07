@@ -1,7 +1,46 @@
 At the beginning
 ================
 
+## Startup Browser
+
+after inflation:
+- restart app
+- app needs regular SSI
+  - auto signon
+  - if not, show signon (interceptor)
+- (else) app allows guest
+  - auto signon
+  - if not
+    - is a guest available signon guest
+    - create and signon guest on this device
+- app starts
+
+- apps witch provide services to other SSI's (customers)
+  - a soul to a service can be provided to the app
+    - URL query param
+    - widget attribute -> take over as URl param in 'iframe' 
+    - hardcoded in the app, take care of updates
+    - app listens when the consumer is established
+      - check if current SSI (maybe guest) has access (verifiable credential grant) to shared entiries 
+      - request grant if missing
+    - customer app home
+
+- in app which works with guest define what to do when an SSI signsOn later
+  - what to do with already created entites. guest user gets:
+    - own anchor (root)
+    - own app instance
+    - entities created and stored for this guest  
+  - there may be other consitions & permissions!
+
 ## Cases
+
+## Check after inflation
+
+- Identity Secret
+    - can auto signon -> signon
+    - app requires valid SSI -> app wait 4 signon
+    - app accepts ghost -> create or reuse Ghost SSI
+
 
 ### First Access
 
@@ -53,6 +92,11 @@ until then, a ghost exists
 
 apply public access claims to new SSI (they are not stored in the SSI settings)
 
+### SSI with auto signon
+
+- Identity Secret 
+  - get id and pin
+  - signon
 
 ### SSI already signed on
 
@@ -107,6 +151,7 @@ apply public access claims to new SSI (they are not stored in the SSI settings)
     - 2FA Devices
         - onlykey
         - handy app
+        - https://www.heise.de/tests/2FA-Fuenf-kostenlose-Authenticator-Apps-fuer-Android-im-Vergleich-7322126.html?wt_mc=intern.red.plus.newsticker.7-tage-news.teaser.teaser
     - Wallet Apps
     - to put into a physical vault
         - QR code, also multiple QR codes e.g. 3 out of 5 needed to recover key
