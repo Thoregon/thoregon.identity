@@ -52,6 +52,7 @@ proof which does not need an further proofs.
 --> https://www.heise.de/hintergrund/FIDO-nimmt-neuen-Anlauf-als-Passwort-Killer-6613194.html
 --> smooth integration of auth providers https://github.com/supertokens/supertokens-core
 --> https://www.heise.de/hintergrund/Zwei-Faktor-Strategien-Kein-Frust-bei-Verlust-6660819.html
+--> https://www.heise.de/hintergrund/Passkeys-Was-sie-ausmacht-und-wie-sie-funktionieren-7366497.html?wt_mc=intern.red.plus.newsticker.7-tage-news.teaser.teaser
 
 # Personal Setup & Installation
 
