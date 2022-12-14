@@ -152,6 +152,7 @@ apply public access claims to new SSI (they are not stored in the SSI settings)
         - onlykey
         - handy app
         - https://www.heise.de/tests/2FA-Fuenf-kostenlose-Authenticator-Apps-fuer-Android-im-Vergleich-7322126.html?wt_mc=intern.red.plus.newsticker.7-tage-news.teaser.teaser
+        - https://itwelt.at/news/multi-faktor-authentifizierung/
     - Wallet Apps
     - to put into a physical vault
         - QR code, also multiple QR codes e.g. 3 out of 5 needed to recover key
