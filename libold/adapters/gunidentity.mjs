@@ -6,7 +6,7 @@
 
 import { forEach, aretry }  from '/evolux.util';
 import { doAsync, timeout } from '/evolux.universe';
-import { IdentityShim }     from '/evolux.everblack';
+import { IdentityShim }     from '/evolux.everblack/lib/identity/identityshim.mjs';
 
 const listeners    = [];
 let authrequests   = [];
