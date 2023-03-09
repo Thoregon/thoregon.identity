@@ -239,6 +239,8 @@ There is an implementation for nodeJS and browser environments (loaded via index
 This also applies to an [Electron Environment](https://www.electronjs.org/)
 when it is used as installed user app
 
+check -> [tauri.app](https://tauri.app/)    Electron replacement?
+
 #### NodeJS
 
 called (service) agent
