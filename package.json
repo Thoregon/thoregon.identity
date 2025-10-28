@@ -2,7 +2,7 @@
   "name": "thoregon.identity",
   "version": "1.0.0",
   "description": "Self-Sovereign Identity",
-  "main": "index.js",
+  "main": "index.mjs",
   "directories": {
     "doc": "doc",
     "lib": "lib"
@@ -20,5 +20,16 @@
   "bugs": {
     "url": "https://github.com/Thoregon/thoregon.identity/issues"
   },
-  "homepage": "https://github.com/Thoregon/thoregon.identity#readme"
+  "homepage": "https://github.com/Thoregon/thoregon.identity#readme",
+  "dependencies": {
+    "evolux.everblack": "file:../../evolux.modules/evolux.everblack",
+    "evolux.supervise": "file:../../evolux.modules/evolux.supervise",
+    "evolux.universe": "file:../../evolux.modules/evolux.universe",
+    "evolux.util": "file:../../evolux.modules/evolux.util",
+    "evolux.web": "file:../../evolux.modules/evolux.web",
+    "thoregon.archetim": "file:../thoregon.archetim",
+    "thoregon.crystalline": "file:../thoregon.crystalline",
+    "thoregon.tru4D": "file:../thoregon.tru4D",
+    "thoregon.truCloud": "file:../thoregon.truCloud"
+  }
 }

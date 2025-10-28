@@ -9,7 +9,7 @@
  * @see: {@link https://github.com/Thoregon}
  */
 
-// import { EventEmitter } from "/evolux.pubsub";
+// import EventEmitter from "//evolux.util/lib/eventemitter.mjs";
 
 export default class IdentityResolver /*extends EventEmitter*/ {
 
